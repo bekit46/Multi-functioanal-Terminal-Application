@@ -10,6 +10,7 @@ public class asciiart {
     }
     
     public static void art(String input,boolean opening){
+        boolean noAnimation = false;
             
             String[] A = {          "   ###    " ,                                  
                                     "  ## ##   " ,                                  
@@ -555,7 +556,7 @@ public class asciiart {
                         " | |__| | (_| | |_| | |  |   < (_| | | | | | |_) |  __/   <| | |_  \n" ,
                         "  \\____/ \\__, |\\__,_|_|  |_|\\_\\__,_|_| |_| |____/ \\___|_|\\_\\_|\\__| \n" ,
                         "          __/ |                                                    \n" ,
-                        "         |___/                                                     "};
+                        "         |___/                                                     \n"};
                     
             for(int i = 0;i<array.length;i++){
                 //clearconsole()
@@ -637,7 +638,7 @@ public class asciiart {
             }
         }
         //opening without any animation
-        if(!opening&&input.equals("WELCOME")){
+        if(!opening&&noAnimation&&input.equals("WELCOME")){
             System.out.print("   _____ _____   ____  _    _ _____    __ _____                    \n" +
                         "  / ____|  __ \\ / __ \\| |  | |  __ \\  /_ | ____|                   \n" +
                         " | |  __| |__) | |  | | |  | | |__) |  | | |__                     \n" +
