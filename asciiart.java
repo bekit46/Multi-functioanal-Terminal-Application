@@ -482,7 +482,7 @@ public class asciiart {
             }
         
             //blink?
-            for(int blink = 0;blink<3;blink++){
+            for(int blink = 0;blink<4;blink++){
                 try{
                     Thread.sleep(500);
                 }
