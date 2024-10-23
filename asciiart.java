@@ -10,7 +10,7 @@ public class asciiart {
     }
     
     public static void art(String input,boolean opening){
-        boolean noAnimation = false;
+        boolean animation = true;
             
             String[] A = {          "   ###    " ,                                  
                                     "  ## ##   " ,                                  
@@ -451,7 +451,7 @@ public class asciiart {
         int currentpos = 0;
 
         //for the opening part
-        if(opening){
+        if(opening&&animation){
             while(true){
                 //clearconsole()
                 try{
@@ -649,7 +649,13 @@ public class asciiart {
             }
         }
         //opening without any animation
-        if(!opening&&noAnimation&&input.equals("WELCOME")){
+        if(opening&&!animation){
+            for(int i = 0;i<7;i++){
+                for(int j = 0;j<message.size();j++){
+                    System.out.print(message.get(j)[i]);
+                }
+                System.out.print("\n");
+            }
             System.out.print("   _____ _____   ____  _    _ _____    __ _____                    \n" +
                         "  / ____|  __ \\ / __ \\| |  | |  __ \\  /_ | ____|                   \n" +
                         " | |  __| |__) | |  | | |  | | |__) |  | | |__                     \n" +
