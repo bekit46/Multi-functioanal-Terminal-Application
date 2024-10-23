@@ -104,7 +104,7 @@ public class projectOptionC {
         System.out.printf("message: %s \n",message);
         System.out.printf("%s message: %s\n\n",selected,output);
 
-        System.out.println("Press enter to return to the main menu:");
+        System.out.println("Press enter to return to the main menu ");
         input.nextLine();
         input.close();//close the scanner object to prevent memory leaks
     }
