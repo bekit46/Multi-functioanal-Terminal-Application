@@ -583,7 +583,7 @@ public class asciiart {
                 }
             }
             Scanner start = new Scanner(System.in);
-            System.out.print("\n\nType anything to move to the main menu: ");
+            System.out.print("\n\nPress enter to move to the main menu: ");
             start.nextLine();
             start.close();
             //clearconsole()
