@@ -315,6 +315,14 @@ public class asciiart {
                                 "     " , 
                                 "#### " , 
                                 "#### "};
+            
+            String[] nonchar = {"        " ,
+                                "        " ,
+                                "        " ,
+                                "####### " ,
+                                "        " ,
+                                "        " ,
+                                "        "};
 
             ArrayList<String[]> message = new ArrayList<>();
             for(char c:input.toCharArray()){
@@ -326,6 +334,9 @@ public class asciiart {
                         message.add(B);
                         break;
                     case 'C':
+                        message.add(C);
+                        break;
+                    case 'Ç':
                         message.add(C);
                         break;
                     case 'D':
@@ -340,13 +351,16 @@ public class asciiart {
                     case 'G':
                         message.add(G);
                         break;
+                    case 'Ğ':
+                        message.add(G);
+                        break;
                     case 'H':
                         message.add(H);
                         break;
                     case 'I':
                         message.add(I);
                         break;
-                    case 'İ'://exception for the upper case method
+                    case 'İ':
                         message.add(I);
                         break;
                     case 'J':
@@ -367,6 +381,9 @@ public class asciiart {
                     case 'O':
                         message.add(O);
                         break;
+                    case 'Ö':
+                        message.add(O);
+                        break;
                     case 'P':
                         message.add(P);
                         break;
@@ -379,10 +396,16 @@ public class asciiart {
                     case 'S':
                         message.add(S);
                         break;
+                    case 'Ş':
+                        message.add(S);
+                        break;
                     case 'T':
                         message.add(T);
                         break;
                     case 'U':
+                        message.add(U);
+                        break;
+                    case 'Ü':
                         message.add(U);
                         break;
                     case 'V':
@@ -437,7 +460,7 @@ public class asciiart {
                         message.add(excMark);
                         break;
                     default:
-                        message.add(space);
+                        message.add(nonchar);
                         break;
                 }
             }
@@ -595,7 +618,7 @@ public class asciiart {
                 }
             }
             Scanner start = new Scanner(System.in);
-            System.out.print("\n\nPress enter to move to the main menu: ");
+            System.out.print("\n\nPress enter to move to the main menu ");
             start.nextLine();
             start.close();
             //clearconsole()
@@ -696,7 +719,7 @@ public class asciiart {
                         "          __/ |                                                    \n" +
                         "         |___/                                                     ");
             Scanner start2 = new Scanner(System.in);
-            System.out.print("\n\nPress enter to move to the main menu: ");
+            System.out.print("\n\nPress enter to move to the main menu ");
             start2.nextLine();
             start2.close();
         }
