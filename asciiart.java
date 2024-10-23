@@ -307,6 +307,14 @@ public class asciiart {
                                 "##     ## " ,
                                 " ##   ##  " ,
                                 "  #####   "};
+            
+            String[] excMark = {"#### " , 
+                                "#### " , 
+                                "#### " , 
+                                " ##  " , 
+                                "     " , 
+                                "#### " , 
+                                "#### "};
 
             ArrayList<String[]> message = new ArrayList<>();
             for(char c:input.toCharArray()){
@@ -425,6 +433,9 @@ public class asciiart {
                     case '0':
                         message.add(zero);
                         break;
+                    case '!':
+                        message.add(excMark);
+                        break;
                     default:
                         message.add(space);
                         break;
@@ -434,7 +445,7 @@ public class asciiart {
 
 
 
-        String[][] letters = {space,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,zero,one,two,three,four,five,six,seven,eight,nine};
+        String[][] letters = {space,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
     
         int[] pointers = new int[input.length()];
         int currentpos = 0;
