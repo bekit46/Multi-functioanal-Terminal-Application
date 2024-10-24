@@ -15,6 +15,7 @@ public class projectOptionC {
         int choice=0;//the choice of the submenu
         int key=0;//key value to be entered
         String selected="Encryption";//string to keep the operation user selected
+        System.out.println("TEXT ENCRYPTION/DECRYPTION");
         while(true){//loop until the user inserts a valid input
             //print the options
             System.out.println("[1] Encryption");
@@ -33,6 +34,7 @@ public class projectOptionC {
                         selected="Decryption";//update the string
                     }
                     clearConsole();
+                    System.out.println("TEXT ENCRYPTION/DECRYPTION");
                     System.out.printf("You have selected %s\n",selected);
                     System.out.println("Please enter a key between the range [-26, 26]");
                     if(input.hasNextInt()){//check if the input is a number
@@ -42,27 +44,32 @@ public class projectOptionC {
                             break;//end the loop
                         }
                         clearConsole();
-                        System.out.println("Invalid input: key is not in the range [-26, 26]");//display the error message
+                        System.out.println("TEXT ENCRYPTION/DECRYPTION");
+                        System.out.println("Invalid input: The provided key is not in the range [-26, 26]");//display the error message
                         //return to the submenu
                     }
                     else{//if not a number
                         clearConsole();
-                        System.out.println("Invalid input: key is not a number");//display the error message
+                        System.out.println("TEXT ENCRYPTION/DECRYPTION");
+                        System.out.println("Invalid input: The provided key is not a number");//display the error message
                         input.next();//clear the scanner object to get the next input without any problems
                         //return to the submenu
                     }
                 }
                 else{//if not a valid number
                     clearConsole();
+                    System.out.println("TEXT ENCRYPTION/DECRYPTION");
                     System.out.printf("Invalid input: %d is not one of the options \n",choice);//display the error message
                 }
             }
             else{//if not a number
                 clearConsole();
-                System.out.println("Invalid input: the provided input is not a number");//display the error message
+                System.out.println("TEXT ENCRYPTION/DECRYPTION");
+                System.out.println("Invalid input: The provided input is not a number");//display the error message
                 input.next();//clear the scanner object to get the next input without any problems
             }
         }
+        System.out.println("TEXT ENCRYPTION/DECRYPTION");
         int chosenkey = key;//to keep the key value that user selected because key might be change in the next operations
         System.out.println("You have selected " + selected + " with the key " + chosenkey);
         
@@ -99,6 +106,7 @@ public class projectOptionC {
             output += character;//add the character to the new string
         }
         clearConsole();
+        System.out.println("TEXT ENCRYPTION/DECRYPTION");
         //operation is done, display the expected messages
         System.out.printf("key: %d \n",chosenkey);
         System.out.printf("message: %s \n",message);
