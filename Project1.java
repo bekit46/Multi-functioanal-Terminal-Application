@@ -19,11 +19,11 @@ public class Project1
         art("welcome".toUpperCase(),true,scanner);
         while(true)
         {
-            System.out.println("A = Array Operations Menu ");
-            System.out.println("B = Matrix Operations Menu ");
-            System.out.println("C = Text Encription Menu ");
-            System.out.println("D = Tic-Tac-Toe Game");
-            System.out.println("E = Exit the program");
+            System.out.println("[A] Array Operations Menu ");
+            System.out.println("[B] Matrix Operations Menu ");
+            System.out.println("[C] Text Encription Menu ");
+            System.out.println("[D] Tic-Tac-Toe Game");
+            System.out.println("[E] Exit the program");
             System.out.printf("Make your selection: ");
 
             input = scanner.nextLine().toUpperCase();
@@ -53,7 +53,7 @@ public class Project1
                     return;
                 default:
                     clearConsole();
-                    System.out.println("Invalid entry please press A, B, C, D (press E to shut down)");
+                    System.out.println("Invalid entry: please press A, B, C, D (press E to shut down)");
             }
         }
     }
@@ -73,6 +73,7 @@ public class Project1
             String input = scanner.next().trim().toUpperCase();
             if (input.equals("X")) 
             {
+                scanner.nextLine();
                 clearConsole();
                 return;
             }
@@ -113,6 +114,7 @@ public class Project1
 
                 if (elementInput.equals("X")) 
                 {
+                    scanner.nextLine();
                     clearConsole();
                     return;
                 }
@@ -238,6 +240,7 @@ public class Project1
                 choice = scanner.nextInt();//keep the number that user provided
                 if(choice==1||choice==2||choice==3){//check if the number taken is valid
                     if(choice==3){//if return to the main menu option is selected
+                        scanner.nextLine();
                         return;//stop and return to main menu
                     }
                     if(choice==2){
@@ -345,7 +348,6 @@ public class Project1
                 String input = scanner.nextLine().toUpperCase();
 
                 if (input.equals("X")) {
-                    System.out.println("You chose to exit the game.");
                     return;
                 }
 
@@ -381,7 +383,7 @@ public class Project1
             }
 
             // Ask if the player wants to play again
-            System.out.println("Do you want to play again? (Y/N)");
+            System.out.println("Type 'y' if you want to play again: ");
             String choice = scanner.nextLine().toUpperCase();
             playAgain = choice.equals("Y");
             clearConsole();
