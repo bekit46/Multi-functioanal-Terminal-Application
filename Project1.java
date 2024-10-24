@@ -1060,7 +1060,12 @@ public class Project1
                 }
                 clearConsole();
             }
-
+            try{
+                Thread.sleep(325);
+            }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
         }
         //without animation, for all other word prints
         if(!opening){
