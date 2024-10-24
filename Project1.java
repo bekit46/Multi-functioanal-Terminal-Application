@@ -58,7 +58,7 @@ public class Project1
         double[] user_array;
         Scanner scanner = new Scanner(System.in);
         clearConsole();
-        System.out.println("Option A chosen");
+        System.out.println("ARRAY OPERATIONS");
 
         while (true) 
         {
@@ -80,21 +80,21 @@ public class Project1
                 else 
                 {
                     clearConsole();
-                    System.out.println("Option A chosen");
+                    System.out.println("ARRAY OPERATIONS");
                     System.out.println("Error: " + input + " is not greater than 0. Please enter a size greater than 0!");
                 }
             } 
             else 
             {
                 clearConsole();
-                System.out.println("Option A chosen");
+                System.out.println("ARRAY OPERATIONS");
                 System.out.println("Error: Please enter a valid size!");
             }
         }
 
         user_array = new double[array_size];
         clearConsole();
-        System.out.println("Option A chosen");
+        System.out.println("ARRAY OPERATIONS");
 
         // Kullanıcıdan dizi elemanlarını al
         for (int i = 0; i < array_size; i++) 
@@ -113,13 +113,13 @@ public class Project1
                 { 
                     user_array[i] = Double.parseDouble(elementInput);
                     clearConsole();
-                    System.out.println("Option A chosen");
+                    System.out.println("ARRAY OPERATIONS");
                     break;
                 } 
                 else 
                 {
                     clearConsole();
-                    System.out.println("Option A chosen");
+                    System.out.println("ARRAY OPERATIONS");
                     System.out.println("Error: Please enter a valid number!");
                 }
             }
@@ -212,12 +212,14 @@ public class Project1
     //************************************OPTION C ALL FUNCTIONS****************************************************
 
     public static void FunctionC(){
+        
         clearConsole();
         
         Scanner input = new Scanner(System.in);//create scanner object
         int choice=0;//the choice of the submenu
         int key=0;//key value to be entered
         String selected="Encryption";//string to keep the operation user selected
+        System.out.println("TEXT ENCRYPTION/DECRYPTION");
         while(true){//loop until the user inserts a valid input
             //print the options
             System.out.println("[1] Encryption");
@@ -235,6 +237,7 @@ public class Project1
                         selected="Decryption";//update the string
                     }
                     clearConsole();
+                    System.out.println("TEXT ENCRYPTION/DECRYPTION");
                     System.out.printf("You have selected %s\n",selected);
                     System.out.println("Please enter a key between the range [-26, 26]");
                     if(input.hasNextInt()){//check if the input is a number
@@ -244,27 +247,32 @@ public class Project1
                             break;//end the loop
                         }
                         clearConsole();
-                        System.out.println("Invalid input: key is not in the range [-26, 26]");//display the error message
+                        System.out.println("TEXT ENCRYPTION/DECRYPTION");
+                        System.out.println("Invalid input: The provided key is not in the range [-26, 26]");//display the error message
                         //return to the submenu
                     }
                     else{//if not a number
                         clearConsole();
-                        System.out.println("Invalid input: key is not a number");//display the error message
+                        System.out.println("TEXT ENCRYPTION/DECRYPTION");
+                        System.out.println("Invalid input: The provided key is not a number");//display the error message
                         input.next();//clear the scanner object to get the next input without any problems
                         //return to the submenu
                     }
                 }
                 else{//if not a valid number
                     clearConsole();
+                    System.out.println("TEXT ENCRYPTION/DECRYPTION");
                     System.out.printf("Invalid input: %d is not one of the options \n",choice);//display the error message
                 }
             }
             else{//if not a number
                 clearConsole();
-                System.out.println("Invalid input: the provided input is not a number");//display the error message
+                System.out.println("TEXT ENCRYPTION/DECRYPTION");
+                System.out.println("Invalid input: The provided input is not a number");//display the error message
                 input.next();//clear the scanner object to get the next input without any problems
             }
         }
+        System.out.println("TEXT ENCRYPTION/DECRYPTION");
         int chosenkey = key;//to keep the key value that user selected because key might be change in the next operations
         System.out.println("You have selected " + selected + " with the key " + chosenkey);
         
@@ -301,6 +309,7 @@ public class Project1
             output += character;//add the character to the new string
         }
         clearConsole();
+        System.out.println("TEXT ENCRYPTION/DECRYPTION");
         //operation is done, display the expected messages
         System.out.printf("key: %d \n",chosenkey);
         System.out.printf("message: %s \n",message);
@@ -322,9 +331,10 @@ public class Project1
             char[][] board = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
             char currentPlayer = 'X';
             boolean gameWon = false;
+            printBoard(board);
 
-            while (!gameWon && !isBoardFull(board)) {
-                printBoard(board);
+            while (!gameWon && !isBoardFull(board))
+            {
                 System.out.printf("Player %s, enter your move (1-9) or press X to exit: ", currentPlayer);
                 String input = scanner.nextLine().toUpperCase();
 
@@ -343,14 +353,15 @@ public class Project1
                         gameWon = checkWin(board, currentPlayer);
                         currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
                         clearConsole();
-                    } else {
                         printBoard(board);
+                    } else {
                         clearConsole();
+                        printBoard(board);
                         System.out.println("This cell is taken, please make a new selection.");
                     }
                 } else {
-                    printBoard(board);
                     clearConsole();
+                    printBoard(board);
                     System.out.println("Invalid entry, please make a selection between 1 to 9.");
                 }
             }
