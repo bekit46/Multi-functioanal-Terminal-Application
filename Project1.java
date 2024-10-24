@@ -1120,6 +1120,7 @@ public class Project1
                         "         |___/                                                     ");
             System.out.print("\n\nPress enter to move to the main menu ");
             scanner.nextLine();
+            clearConsole();
         }
     }
 }
