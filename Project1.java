@@ -11,6 +11,9 @@ import java.util.Arrays;
 
 public class Project1
 {
+    /**
+     * This function includes main menu of the application. It consists of 4 different sub menu and each sub menu divides into sub functions.
+     */
     public static void main(String args[])
     {
         String input;
@@ -60,6 +63,10 @@ public class Project1
 
     //************************************OPTION A ALL FUNCTIONS****************************************************
 
+
+    /**
+     * 
+     */
     public static void FunctionA(Scanner scanner)
     {
         int array_size = 0;
@@ -104,9 +111,9 @@ public class Project1
         clearConsole();
         System.out.println("ARRAY OPERATIONS");
 
-        // Kullanıcıdan dizi elemanlarını al
         for (int i = 0; i < array_size; i++) 
         {
+
             while (true) 
             {
                 System.out.print("Enter element " + (i + 1) + " (or X to exit): ");
@@ -382,7 +389,6 @@ public class Project1
                 System.out.println("It's a draw!");
             }
 
-            // Ask if the player wants to play again
             System.out.println("Type 'y' if you want to play again: ");
             String choice = scanner.nextLine().toUpperCase();
             playAgain = choice.equals("Y");
@@ -936,20 +942,7 @@ public class Project1
         //for the opening part
         if(opening&&animation){
             while(true){
-                //clearconsole()
-                try{
-                    if(System.getProperty("os.name").contains("Windows")){
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    }
-                    else{
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
-                    }
-                }
-                catch (IOException | InterruptedException e){
-                    e.printStackTrace();
-                }
-                //until here
+                clearConsole();
         
                 for(int i = 0;i<7;i++){//row of a letter
                     for(int j = 0;j<=currentpos;j++){//each letter
@@ -984,20 +977,7 @@ public class Project1
                 catch(InterruptedException e){
                     e.printStackTrace();
                 }
-                //clearconsole()
-                try{
-                    if(System.getProperty("os.name").contains("Windows")){
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    }
-                    else{
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
-                    }
-                }
-                catch (IOException | InterruptedException e){
-                    e.printStackTrace();
-                }
-                //until here
+                clearConsole();
                 try{
                     Thread.sleep(500);
                 }
@@ -1053,20 +1033,7 @@ public class Project1
                         "         |___/                                                     \n"};
                     
             for(int i = 0;i<array.length;i++){
-                //clearconsole()
-                try{
-                    if(System.getProperty("os.name").contains("Windows")){
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    }
-                    else{
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
-                    }
-                }
-                catch (IOException | InterruptedException e){
-                    e.printStackTrace();
-                }
-                //until here
+                clearConsole();
                 for(int j = 0;j<=i;j++){
                     System.out.print(array[j]);
                 }
@@ -1080,20 +1047,7 @@ public class Project1
             
             System.out.print("\n\nPress enter to move to the main menu ");
             scanner.nextLine();
-            //clearconsole()
-            try{
-                if(System.getProperty("os.name").contains("Windows")){
-                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                }
-                else{
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
-                }
-            }
-            catch (IOException | InterruptedException e){
-                e.printStackTrace();
-            }
-            //until here
+            clearConsole();
             for(int i = array.length-1;i>=0;i--){
                 for(int j = 0;j<=i;j++){
                     System.out.print(array[j]);
@@ -1104,20 +1058,7 @@ public class Project1
                 catch(InterruptedException e){
                     e.printStackTrace();
                 }
-                //clearconsole()
-                try{
-                    if(System.getProperty("os.name").contains("Windows")){
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    }
-                    else{
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
-                    }
-                }
-                catch (IOException | InterruptedException e){
-                    e.printStackTrace();
-                }
-                //until here
+                clearConsole();
             }
 
         }
