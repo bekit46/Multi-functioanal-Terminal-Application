@@ -49,12 +49,12 @@ public class Function_B {
         int rows = 0;
         int cols = 0;
 
-        // Satır sayısını al
+        // Get row value from the user
         while (true) {
             System.out.print("Enter the rows of the matrix (or X to exit): ");
             String input = scanner.next().trim().toUpperCase();
             if (input.equals("X")) {
-                return null; // Çıkış
+                return null; // Exit
             }
 
             if (input.matches("\\d+")) {
@@ -73,12 +73,12 @@ public class Function_B {
             }
         }
 
-        // Sütun sayısını al
+        // Get column value from the user
         while (true) {
             System.out.print("Enter the columns of the matrix (or X to exit): ");
             String input = scanner.next().trim().toUpperCase();
             if (input.equals("X")) {
-                return null; // Çıkış
+                return null; // Exit
             }
 
             if (input.matches("\\d+")) {
@@ -97,10 +97,10 @@ public class Function_B {
             }
         }
 
-        // Matrisi oluştur
+        // Create the matrix
         double[][] matrix = new double[rows][cols];
 
-        // Elemanları al
+        // Get the values for the matrix
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 while (true) {
@@ -132,7 +132,7 @@ public class Function_B {
 
         return matrix;
     }
-
+    // Matrix Transpose
     private static void handleTranspose() {
         double[][] matrix = getMatrix();
         if (matrix == null) {
@@ -152,7 +152,7 @@ public class Function_B {
         System.out.println("Transposed Matrix:");
         printMatrixFrame(transpose);
     }
-
+    // Matrix Multiplication
     private static void handleMultiplication() {
         System.out.println("Enter the details for the first matrix:");
         double[][] matrix1 = getMatrix();
