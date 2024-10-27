@@ -1,13 +1,16 @@
 import java.util.Scanner;
 
 public class Function_B_updated {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
+        matrixoperations(scanner);
+        scanner.close();
+    }
+    public static void matrixoperations(Scanner scanner) {
         boolean exit = false;
         clearConsole();
-
+        System.out.println("MATRIX OPERATIONS");
         while (!exit) {
-            System.out.println("MATRIX OPERATIONS");
             System.out.println("[1] Transpose Matrix");
             System.out.println("[2] Inverse Matrix");
             System.out.println("[3] Matrix Multiplication");
@@ -18,43 +21,39 @@ public class Function_B_updated {
 
             switch (choice) {
                 case "1":
-                    transposeMatrix();
-                    clearConsole();
+                    transposeMatrix(scanner);
                     break;
                 case "2":
-                    inverseMatrix();
-                    clearConsole();
+                    inverseMatrix(scanner);
                     break;
                 case "3":
-                    matrixMultiplication();
-                    clearConsole();
+                    matrixMultiplication(scanner);
                     break;
                 case "4":
-                    elementWiseMultiplication();
-                    clearConsole();
+                    elementWiseMultiplication(scanner);
                     break;
                 case "5":
                     exit = true;
                     break;
                 default:
+                    clearConsole();
+                    System.out.println("MATRIX OPERATIONS");
                     System.out.println("Invalid choice. Please select a valid option.");
             }
         }
-
-        scanner.close();
     }
 
-    public static double[][] getMatrix()
+    public static double[][] getMatrix(Scanner scanner,String operation)
     {
-        Scanner scanner = new Scanner(System.in);
         int rows = 0;
         int cols = 0;
-
+        
         // Satır sayısını al
         while (true) {
             System.out.print("Enter the rows of the matrix (or X to exit): ");
             String input = scanner.next().trim().toUpperCase();
             if (input.equals("X")) {
+                scanner.nextLine();
                 return null; // Çıkış
             }
 
@@ -64,21 +63,23 @@ public class Function_B_updated {
                     break;
                 } else {
                     clearConsole();
-                    System.out.println("MATRIX OPERATIONS");
+                    System.out.println("MATRIX OPERATIONS: "+operation);
                     System.out.println("Error: Matrix rows must be between 1 and 5");
                 }
             } else {
                 clearConsole();
-                System.out.println("MATRIX OPERATIONS");
+                System.out.println("MATRIX OPERATIONS: "+operation);
                 System.out.println("Error: Please enter a valid size!");
             }
         }
-
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS: "+operation);
         // Sütun sayısını al
         while (true) {
             System.out.print("Enter the columns of the matrix (or X to exit): ");
             String input = scanner.next().trim().toUpperCase();
             if (input.equals("X")) {
+                scanner.nextLine();
                 return null; // Çıkış
             }
 
@@ -89,12 +90,12 @@ public class Function_B_updated {
                     break;
                 } else {
                     clearConsole();
-                    System.out.println("MATRIX OPERATIONS");
+                    System.out.println("MATRIX OPERATIONS: "+operation);
                     System.out.println("Error: Matrix columns must be between 1 and 5");
                 }
             } else {
                 clearConsole();
-                System.out.println("MATRIX OPERATIONS");
+                System.out.println("MATRIX OPERATIONS: "+operation);
                 System.out.println("Error: Please enter a valid size!");
             }
         }
@@ -107,7 +108,7 @@ public class Function_B_updated {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 while (true) {
-                    System.out.println("MATRIX OPERATIONS");
+                    System.out.println("MATRIX OPERATIONS: "+operation);
                     printMatrix(matrix);
 
                     if(err)
@@ -119,6 +120,7 @@ public class Function_B_updated {
                     String elementInput = scanner.next().trim().toUpperCase();
 
                     if (elementInput.equals("X")) {
+                        scanner.nextLine();
                         return null; // Çıkış
                     }
 
@@ -133,19 +135,18 @@ public class Function_B_updated {
                 }
             }
         }
-
+        scanner.nextLine();
         return matrix;
     }
 
-    public static double[][] getParamaterizedMatrix(int row, int col)
+    public static double[][] getParamaterizedMatrix(int row, int col,Scanner scanner,String operation)
     {
         boolean err = false;
-        Scanner scanner = new Scanner(System.in);
         double[][] matrix = new double[row][col];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 while (true) {
-                    System.out.println("MATRIX OPERATIONS");
+                    System.out.println("MATRIX OPERATIONS: "+operation);
                     printMatrix(matrix);
 
                     if(err)
@@ -157,6 +158,7 @@ public class Function_B_updated {
                     String elementInput = scanner.next().trim().toUpperCase();
 
                     if (elementInput.equals("X")) {
+                        scanner.nextLine();
                         return null; // Çıkış
                     }
 
@@ -171,20 +173,22 @@ public class Function_B_updated {
                 }
             }
         }
-
         return matrix;
     }
 
-    public static void transposeMatrix()
+    public static void transposeMatrix(Scanner scanner)
     {
         clearConsole();
-        System.out.println("MATRIX OPERATIONS");
+        System.out.println("MATRIX OPERATIONS: TRANSPOSE");
 
-        double[][] matrix = getMatrix();
-        if(matrix == null)
+        double[][] matrix = getMatrix(scanner,"TRANSPOSE");
+        if(matrix == null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
             return;
+        }
         clearConsole();
-        System.out.println("MATRIX OPERATIONS");
+        System.out.println("MATRIX OPERATIONS: TRANSPOSE");
         System.out.println("Entered Matrix");
         printMatrix(matrix);
         int rows = matrix.length;
@@ -200,35 +204,39 @@ public class Function_B_updated {
         System.out.println("Transposed Matrix:");
         printMatrix(transpose);
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Press enter to return to the main menu: ");
-        String input = scanner.nextLine();
+        scanner.nextLine();
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
     }
 
-    public static void inverseMatrix()
+    public static void inverseMatrix(Scanner scanner)
     {
         clearConsole();
         System.out.println("MATRIX OPERATIONS");
         System.out.println("Inverse is not ready for now: ");
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Press enter to return to the main menu: ");
-        String input = scanner.nextLine();
+        scanner.nextLine();
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
     }
 
-    public static void matrixMultiplication()
+    public static void matrixMultiplication(Scanner scanner)
     {
-        Scanner scanner = new Scanner(System.in);
         int rows1 = 0;
         int cols1 = 0;
         int cols2 = 0;
         clearConsole();
         
-        System.out.println("MATRIX OPERATIONS");
+        System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
         while (true) {
             System.out.print("Enter the rows of the first matrix (or X to exit): ");
             String input = scanner.next().trim().toUpperCase();
             if (input.equals("X")) {
+                scanner.nextLine();
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS");
                 return; // Çıkış
             }
 
@@ -238,22 +246,25 @@ public class Function_B_updated {
                     break;
                 } else {
                     clearConsole();
-                    System.out.println("MATRIX OPERATIONS");
+                    System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
                     System.out.println("Error: Matrix rows must be between 1 and 5");
                 }
             } else {
                 clearConsole();
-                System.out.println("MATRIX OPERATIONS");
+                System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
                 System.out.println("Error: Please enter a valid size!");
             }
         }
 
         clearConsole();
-        System.out.println("MATRIX OPERATIONS");
+        System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
         while (true) {
             System.out.print("Enter the cols of the first matrix (or X to exit): ");
             String input = scanner.next().trim().toUpperCase();
             if (input.equals("X")) {
+                scanner.nextLine();
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS");
                 return; // Çıkış
             }
 
@@ -263,25 +274,32 @@ public class Function_B_updated {
                     break;
                 } else {
                     clearConsole();
-                    System.out.println("MATRIX OPERATIONS");
+                    System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
                     System.out.println("Error: Matrix cols must be between 1 and 5");
                 }
             } else {
                 clearConsole();
-                System.out.println("MATRIX OPERATIONS");
+                System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
                 System.out.println("Error: Please enter a valid size!");
             }
         }
 
         clearConsole();
-        double[][] matrix1 = getParamaterizedMatrix(rows1, cols1);
-
+        double[][] matrix1 = getParamaterizedMatrix(rows1, cols1,scanner,"MATRIX MULTIPLICATION");
+        if(matrix1==null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
         clearConsole();
-        System.out.println("MATRIX OPERATIONS");
+        System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
         while (true) {
-            System.out.printf("Enter the cols of the second matrix (rows is automatically assigned to the " + cols1 + " cols of the first matrix)(or X to exit): ");
+            System.out.printf("Enter the cols of the second matrix (rows is automatically assigned to " + cols1 + " ,cols of the first matrix)(or X to exit): ");
             String input = scanner.next().trim().toUpperCase();
             if (input.equals("X")) {
+                scanner.nextLine();
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS");
                 return; // Çıkış
             }
 
@@ -291,18 +309,23 @@ public class Function_B_updated {
                     break;
                 } else {
                     clearConsole();
-                    System.out.println("MATRIX OPERATIONS");
+                    System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
                     System.out.println("Error: Matrix cols must be between 1 and 5");
                 }
             } else {
                 clearConsole();
-                System.out.println("MATRIX OPERATIONS");
+                System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
                 System.out.println("Error: Please enter a valid size!");
             }
         }
 
         clearConsole();
-        double[][] matrix2 = getParamaterizedMatrix(cols1, cols2);
+        double[][] matrix2 = getParamaterizedMatrix(cols1, cols2,scanner,"MATRIX MULTIPLICATION");
+        if(matrix2==null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
         
         double[][] result = new double[rows1][cols2];
 
@@ -315,7 +338,7 @@ public class Function_B_updated {
         }
         
         clearConsole();
-        System.out.println("MATRIX OPERATIONS");
+        System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
         System.out.println("First Matrix");
         printMatrix(matrix1);
 
@@ -327,18 +350,30 @@ public class Function_B_updated {
 
         scanner.nextLine();
         System.out.println("Press enter to return to the main menu: ");
-        String input = scanner.nextLine();
+        scanner.nextLine();
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
     }
 
 
-    public static void elementWiseMultiplication()
+    public static void elementWiseMultiplication(Scanner scanner)
     {
         clearConsole();
-        System.out.println("MATRIX OPERATIONS");
-        double[][] matrix1 = getMatrix();
+        System.out.println("MATRIX OPERATIONS: ELEMENT-WISE MULTIPLICATION");
+        double[][] matrix1 = getMatrix(scanner,"ELEMENT-WISE MULTIPLICATION");
+        if(matrix1==null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
         int row = matrix1.length;
         int col = matrix1[0].length;
-        double[][] matrix2 = getParamaterizedMatrix(row, col);
+        double[][] matrix2 = getParamaterizedMatrix(row, col,scanner,"ELEMENT-WISE MULTIPLICATION");
+        if(matrix2==null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
         double[][] multipliedMatrix = new double[row][col];
 
         for(int i = 0; i < row; i++)
@@ -349,7 +384,7 @@ public class Function_B_updated {
             }
         }
 
-        System.out.println("MATRIX OPERATIONS");
+        System.out.println("MATRIX OPERATIONS: ELEMENT-WISE MULTIPLICATION");
         System.out.println("First Matrix");
         printMatrix(matrix1);
 
@@ -359,9 +394,11 @@ public class Function_B_updated {
         System.out.println("Element-wise Multiplied Matrix");
         printMatrix(multipliedMatrix);
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Press enter to return to the main menu: ");
-        String input = scanner.nextLine();
+        scanner.nextLine();
+        scanner.nextLine();
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
     }
 
     private static void printMatrix(double[][] matrix)
@@ -381,3 +418,4 @@ public class Function_B_updated {
         System.out.flush();
     }
 }
+    
