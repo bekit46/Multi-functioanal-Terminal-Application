@@ -19,7 +19,8 @@ public class Project1
         String input;
         clearConsole();
         Scanner scanner = new Scanner(System.in);
-        art("welcome".toUpperCase(),true,scanner);
+        boolean err = false;
+        //art("welcome".toUpperCase(),true,scanner);
         while(true)
         {
             System.out.println("[A] Array Operations Menu ");
@@ -27,7 +28,13 @@ public class Project1
             System.out.println("[C] Text Encription Menu ");
             System.out.println("[D] Tic-Tac-Toe Game");
             System.out.println("[E] Exit the program");
+            if(err)
+            {
+                System.out.printf("\nInvalid entry: please press A, B, C, D (press E to shut down)\n\n");
+                err = false;
+            }
             System.out.printf("Make your selection: ");
+            
 
             input = scanner.nextLine().toUpperCase();
 
@@ -38,8 +45,8 @@ public class Project1
                     clearConsole();
                     break;
                 case "B":
+                    FunctionB(scanner);
                     clearConsole();
-                    FunctionB();
                     break;
                 case "C":
                     FunctionC(scanner);
@@ -56,7 +63,7 @@ public class Project1
                     return;
                 default:
                     clearConsole();
-                    System.out.println("Invalid entry: please press A, B, C, D (press E to shut down)");
+                    err = true;
             }
         }
     }
@@ -116,6 +123,7 @@ public class Project1
 
             while (true) 
             {
+                printarr(user_array);
                 System.out.print("Enter element " + (i + 1) + " (or X to exit): ");
                 String elementInput = scanner.next().trim().toUpperCase();
 
@@ -125,7 +133,7 @@ public class Project1
                     clearConsole();
                     return;
                 }
-                if (isNumeric(elementInput)) 
+                if (elementInput.matches("-?\\d+(\\.\\d+)?")) 
                 { 
                     user_array[i] = Double.parseDouble(elementInput);
                     clearConsole();
@@ -155,18 +163,45 @@ public class Project1
         scanner.nextLine();
     }
 
-    public static void printarr(double[] arr) 
-    {
-        System.out.print("array={");
-        for (int i = 0; i < arr.length; i++) 
-        {
-            System.out.print((double) arr[i]);
-            if (i < arr.length - 1) 
-            {
-                System.out.print(", ");
+    public static void printarr(double[] array) {
+        int maxLength = getMaxLength(array); // get max length number
+
+        // Print the top border
+        System.out.print("┌");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print("──");
+            System.out.print("─".repeat(maxLength));
+            if (i < array.length - 1) System.out.print("┬");
+        }
+        System.out.println("┐");
+
+        // Print the array elements with separators
+        System.out.print("│");
+        for (int i = 0; i < array.length; i++) {
+            System.out.printf("%" + maxLength + ".2f  ", array[i]);
+            System.out.print("│");
+        }
+        System.out.println();
+
+        // Print the bottom border
+        System.out.print("└");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print("─".repeat(maxLength));
+            System.out.print("──");
+            if (i < array.length - 1) System.out.print("┴");
+        }
+        System.out.println("┘");
+    }
+    private static int getMaxLength(double[] array) {
+        int maxLength = 5; // Default width for values like "0.00"
+
+        for (double value : array) {
+            int length = String.format("%.2f", value).length();
+            if (length > maxLength) {
+                maxLength = length;
             }
         }
-        System.out.println("}");
+        return maxLength + 1; // Adding 1 for padding
     }
 
     public static double median(int arr_size, double arr[])
@@ -214,16 +249,460 @@ public class Project1
         return harmonic_mean(arr_size, arr, index+1, sum);
     }
 
-    public static boolean isNumeric(String input) 
-    {
-        return input.matches("-?\\d+(\\.\\d+)?"); 
-    }
-
     //************************************OPTION B ALL FUNCTIONS****************************************************
 
-    public static void FunctionB()
+    public static void FunctionB(Scanner scanner)
     {
-        System.out.println("Function B is called, Matrix Operation Menu is not available for now");
+        boolean exit = false;
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
+        while (!exit) {
+            System.out.println("[1] Transpose Matrix");
+            System.out.println("[2] Inverse Matrix");
+            System.out.println("[3] Matrix Multiplication");
+            System.out.println("[4] Element-Wise Multiplication");
+            System.out.println("[5] Exit");
+            System.out.print("Select an option: ");
+            String choice = scanner.nextLine().toUpperCase();
+
+            switch (choice) {
+                case "1":
+                    transposeMatrix(scanner);
+                    break;
+                case "2":
+                    inverseMatrix(scanner);
+                    break;
+                case "3":
+                    matrixMultiplication(scanner);
+                    break;
+                case "4":
+                    elementWiseMultiplication(scanner);
+                    break;
+                case "5":
+                    exit = true;
+                    break;
+                default:
+                    clearConsole();
+                    System.out.println("MATRIX OPERATIONS");
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
+        }
+    }
+
+    public static double[][] getMatrix(Scanner scanner,String operation)
+    {
+        int rows = 0;
+        int cols = 0;
+        
+        // Satır sayısını al
+        while (true) {
+            System.out.print("Enter the rows of the matrix (or X to exit): ");
+            String input = scanner.next().trim().toUpperCase();
+            if (input.equals("X")) {
+                scanner.nextLine();
+                return null; // Çıkış
+            }
+
+            if (input.matches("\\d+")) {
+                rows = Integer.parseInt(input);
+                if (rows >= 1 && rows <= 5) {
+                    break;
+                } else {
+                    clearConsole();
+                    System.out.println("MATRIX OPERATIONS: "+operation);
+                    System.out.println("Error: Matrix rows must be between 1 and 5");
+                }
+            } else {
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS: "+operation);
+                System.out.println("Error: Please enter a valid size!");
+            }
+        }
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS: "+operation);
+        // Sütun sayısını al
+        while (true) {
+            System.out.print("Enter the columns of the matrix (or X to exit): ");
+            String input = scanner.next().trim().toUpperCase();
+            if (input.equals("X")) {
+                scanner.nextLine();
+                return null; // Çıkış
+            }
+
+            if (input.matches("\\d+")) {
+                cols = Integer.parseInt(input);
+                if (cols >= 1 && cols <= 5) {
+                    clearConsole();
+                    break;
+                } else {
+                    clearConsole();
+                    System.out.println("MATRIX OPERATIONS: "+operation);
+                    System.out.println("Error: Matrix columns must be between 1 and 5");
+                }
+            } else {
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS: "+operation);
+                System.out.println("Error: Please enter a valid size!");
+            }
+        }
+
+        // Matrisi oluştur
+        double[][] matrix = new double[rows][cols];
+        boolean err = false;
+
+        // Elemanları al
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                while (true) {
+                    System.out.println("MATRIX OPERATIONS: "+operation);
+                    printMatrix(matrix);
+
+                    if(err)
+                    {
+                        System.out.println("Error: Please enter a valid number!");
+                        err = false;
+                    }
+                    System.out.print("Enter value for (" + (i + 1) + ", " + (j + 1) + ") element (or X to exit): ");
+                    String elementInput = scanner.next().trim().toUpperCase();
+
+                    if (elementInput.equals("X")) {
+                        scanner.nextLine();
+                        return null; // Çıkış
+                    }
+
+                    if (elementInput.matches("-?\\d+(\\.\\d+)?")) {
+                        matrix[i][j] = Double.parseDouble(elementInput);
+                        clearConsole();
+                        break;
+                    } else {
+                        clearConsole();
+                        err = true;
+                    }
+                }
+            }
+        }
+        scanner.nextLine();
+        return matrix;
+    }
+
+    public static double[][] getParamaterizedMatrix(int row, int col,Scanner scanner,String operation)
+    {
+        boolean err = false;
+        double[][] matrix = new double[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                while (true) {
+                    System.out.println("MATRIX OPERATIONS: "+operation);
+                    printMatrix(matrix);
+
+                    if(err)
+                    {
+                        System.out.println("Error: Please enter a valid number!");
+                        err = false;
+                    }
+                    System.out.print("Enter value for (" + (i + 1) + ", " + (j + 1) + ") element (or X to exit): ");
+                    String elementInput = scanner.next().trim().toUpperCase();
+
+                    if (elementInput.equals("X")) {
+                        scanner.nextLine();
+                        return null; // Çıkış
+                    }
+
+                    if (elementInput.matches("-?\\d+(\\.\\d+)?")) {
+                        matrix[i][j] = Double.parseDouble(elementInput);
+                        clearConsole();
+                        break;
+                    } else {
+                        clearConsole();
+                        err = true;
+                    }
+                }
+            }
+        }
+        return matrix;
+    }
+
+    public static void transposeMatrix(Scanner scanner)
+    {
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS: TRANSPOSE");
+
+        double[][] matrix = getMatrix(scanner,"TRANSPOSE");
+        if(matrix == null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS: TRANSPOSE");
+        System.out.println("Entered Matrix");
+        printMatrix(matrix);
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        double[][] transpose = new double[cols][rows];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                transpose[j][i] = matrix[i][j];
+            }
+        }
+
+        System.out.println("Transposed Matrix:");
+        printMatrix(transpose);
+
+        System.out.println("Press enter to return to the main menu: ");
+        scanner.nextLine();
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
+    }
+
+    public static void inverseMatrix(Scanner scanner)
+    {
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
+        System.out.println("Inverse is not ready for now: ");
+
+        System.out.println("Press enter to return to the main menu: ");
+        scanner.nextLine();
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
+    }
+
+    public static void matrixMultiplication(Scanner scanner)
+    {
+        int rows1 = 0;
+        int cols1 = 0;
+        int cols2 = 0;
+        clearConsole();
+        
+        System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+        while (true) {
+            System.out.print("Enter the rows of the first matrix (or X to exit): ");
+            String input = scanner.next().trim().toUpperCase();
+            if (input.equals("X")) {
+                scanner.nextLine();
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS");
+                return; // Çıkış
+            }
+
+            if (input.matches("\\d+")) {
+                rows1 = Integer.parseInt(input);
+                if (rows1 >= 1 && rows1 <= 5) {
+                    break;
+                } else {
+                    clearConsole();
+                    System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+                    System.out.println("Error: Matrix rows must be between 1 and 5");
+                }
+            } else {
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+                System.out.println("Error: Please enter a valid size!");
+            }
+        }
+
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+        while (true) {
+            System.out.print("Enter the cols of the first matrix (or X to exit): ");
+            String input = scanner.next().trim().toUpperCase();
+            if (input.equals("X")) {
+                scanner.nextLine();
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS");
+                return; // Çıkış
+            }
+
+            if (input.matches("\\d+")) {
+                cols1 = Integer.parseInt(input);
+                if (cols1 >= 1 && cols1 <= 5) {
+                    break;
+                } else {
+                    clearConsole();
+                    System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+                    System.out.println("Error: Matrix cols must be between 1 and 5");
+                }
+            } else {
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+                System.out.println("Error: Please enter a valid size!");
+            }
+        }
+
+        clearConsole();
+        double[][] matrix1 = getParamaterizedMatrix(rows1, cols1,scanner,"MATRIX MULTIPLICATION");
+        if(matrix1==null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+        while (true) {
+            System.out.printf("Enter the cols of the second matrix (rows is automatically assigned to " + cols1 + " ,cols of the first matrix)(or X to exit): ");
+            String input = scanner.next().trim().toUpperCase();
+            if (input.equals("X")) {
+                scanner.nextLine();
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS");
+                return; // Çıkış
+            }
+
+            if (input.matches("\\d+")) {
+                cols2 = Integer.parseInt(input);
+                if (cols2 >= 1 && cols2 <= 5) {
+                    break;
+                } else {
+                    clearConsole();
+                    System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+                    System.out.println("Error: Matrix cols must be between 1 and 5");
+                }
+            } else {
+                clearConsole();
+                System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+                System.out.println("Error: Please enter a valid size!");
+            }
+        }
+
+        clearConsole();
+        double[][] matrix2 = getParamaterizedMatrix(cols1, cols2,scanner,"MATRIX MULTIPLICATION");
+        if(matrix2==null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
+        
+        double[][] result = new double[rows1][cols2];
+
+        for (int i = 0; i < rows1; i++) {
+            for (int j = 0; j < cols2; j++) {
+                for (int k = 0; k < cols1; k++) {
+                    result[i][j] += matrix1[i][k] * matrix2[k][j];
+                }
+            }
+        }
+        
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS: MATRIX MULTIPLICATION");
+        System.out.println("First Matrix");
+        printMatrix(matrix1);
+
+        System.out.println("Second Matrix");
+        printMatrix(matrix2);
+
+        System.out.println("Multiplied Matrix");
+        printMatrix(result);
+
+        scanner.nextLine();
+        System.out.println("Press enter to return to the main menu: ");
+        scanner.nextLine();
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
+    }
+
+
+    public static void elementWiseMultiplication(Scanner scanner)
+    {
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS: ELEMENT-WISE MULTIPLICATION");
+        double[][] matrix1 = getMatrix(scanner,"ELEMENT-WISE MULTIPLICATION");
+        if(matrix1==null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
+        int row = matrix1.length;
+        int col = matrix1[0].length;
+        double[][] matrix2 = getParamaterizedMatrix(row, col,scanner,"ELEMENT-WISE MULTIPLICATION");
+        if(matrix2==null){
+            clearConsole();
+            System.out.println("MATRIX OPERATIONS");
+            return;
+        }
+        double[][] multipliedMatrix = new double[row][col];
+
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                multipliedMatrix[i][j] = matrix1[i][j]*matrix2[i][j];
+            }
+        }
+
+        System.out.println("MATRIX OPERATIONS: ELEMENT-WISE MULTIPLICATION");
+        System.out.println("First Matrix");
+        printMatrix(matrix1);
+
+        System.out.println("Second Matrix");
+        printMatrix(matrix2);
+
+        System.out.println("Element-wise Multiplied Matrix");
+        printMatrix(multipliedMatrix);
+
+        System.out.println("Press enter to return to the main menu: ");
+        scanner.nextLine();
+        scanner.nextLine();
+        clearConsole();
+        System.out.println("MATRIX OPERATIONS");
+    }
+
+   public static void printMatrix(double[][] matrix) {
+        int maxLength = getMaxLength(matrix); // get the largest length number
+
+        // Print the top border
+        System.out.print("┌");
+        for (int i = 0; i < matrix[0].length; i++) {
+            System.out.print("──");
+            System.out.print("─".repeat(maxLength));
+            if (i < matrix[0].length - 1) System.out.print("┬");
+        }
+        System.out.println("┐");
+
+        // Print each row with vertical separators
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.print("│");
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.printf("%" + maxLength + ".2f  ", matrix[i][j]);
+                System.out.print("│");
+            }
+            System.out.println();
+
+            // Print row separator if not the last row
+            if (i < matrix.length - 1) {
+                System.out.print("├");
+                for (int j = 0; j < matrix[i].length; j++) {
+                    System.out.print("──");
+                    System.out.print("─".repeat(maxLength));
+                    if (j < matrix[i].length - 1) System.out.print("┼");
+                }
+                System.out.println("┤");
+            }
+        }
+
+        // Print the bottom border
+        System.out.print("└");
+        for (int i = 0; i < matrix[0].length; i++) {
+            System.out.print("──");
+            System.out.print("─".repeat(maxLength));
+            if (i < matrix[0].length - 1) System.out.print("┴");
+        }
+        System.out.println("┘");
+    }
+
+    // Helper method to get the max length for formatting
+    private static int getMaxLength(double[][] matrix) {
+        int maxLength = 5; // Default width for values like "0.00"
+
+        for (double[] row : matrix) {
+            for (double value : row) {
+                int length = String.format("%.2f", value).length();
+                if (length > maxLength) {
+                    maxLength = length;
+                }
+            }
+        }
+        return maxLength + 1; // Adding 1 for padding
     }
 
     //************************************OPTION C ALL FUNCTIONS****************************************************
@@ -399,17 +878,15 @@ public class Project1
 
     public static void printBoard(char[][] board)
     {
-        System.out.println("TIC-TAC-TOE GAME");
-        for (int i = 0; i < 3; i++)
-        {
-            System.out.print("| ");
-            for (int j = 0; j < 3; j++)
-            {
-                System.out.print(board[i][j] + " | ");
-            }
-            System.out.println();
-            System.out.println("-------------");
-        }
+        System.out.println(" TIC-TAC-TOE GAME");
+        
+        System.out.println("┌─────┬─────┬─────┐");
+        System.out.printf ("│  %c  │  %c  │  %c  │\n", board[0][0], board[0][1], board[0][2]);
+        System.out.println("├─────┼─────┼─────┤");
+        System.out.printf ("│  %c  │  %c  │  %c  │\n",  board[1][0], board[1][1], board[1][2]);
+        System.out.println("├─────┼─────┼─────┤");
+        System.out.printf ("│  %c  │  %c  │  %c  │\n",  board[2][0], board[2][1], board[2][2]);
+        System.out.println("└─────┴─────┴─────┘");
     }
 
     public static boolean checkWin(char[][] board, char player)
@@ -436,11 +913,6 @@ public class Project1
         }
         return true;
     }
-
-
-
-
-
 
 //************************************EXTRA FUNCTIONS****************************************************
 
@@ -1129,4 +1601,3 @@ public class Project1
         }
     }
 }
-
