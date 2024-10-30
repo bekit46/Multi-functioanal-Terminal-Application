@@ -29,7 +29,7 @@ public class Project1
         clearConsole();
         Scanner scanner = new Scanner(System.in);
         boolean err = false;
-        art("welcome",true,scanner);
+        //art("welcome",true,scanner);
         while(true)
         {
             System.out.println("MAIN MENU");
@@ -79,7 +79,6 @@ public class Project1
     }
 
 //************************************OPTION A ALL FUNCTIONS****************************************************
-
 
     /**
      * Main function to execute array operations. It prompts the user for array size,
@@ -279,7 +278,7 @@ public class Project1
         return harmonic_mean(arr_size, arr, index+1, sum);
     }
 
-//************************************OPTION B ALL FUNCTIONS****************************************************
+    //************************************OPTION B ALL FUNCTIONS****************************************************
 
     /**
      * Provides various matrix operations, including transposition, inversion,
@@ -484,23 +483,23 @@ public class Project1
      *
      * @param scanner Scanner for user input.
      */
-    public static void inverseMatrix(Scanner scanner)
-    {
+    public static void inverseMatrix(Scanner scanner) {
         clearConsole();
         System.out.println("MATRIX OPERATIONS: INVERSE");
         int rows = 0;
-
+    
         rows = getSize(scanner, "Enter the rows of the matrix (columns will be automatically assigned to same size) (or X to exit): ", "MATRIX OPERATIONS", "MATRIX OPERATIONS: INVERSE");
         if(rows == -1)
             return;
-
+    
         clearConsole();
         double[][] matrix = getParamaterizedMatrix(rows, rows, scanner, "INVERSE");
         if(matrix == null)
             return;
-
+    
         double[][] augmented = new double[rows][2 * rows];
-
+        double tolerance = 1e-9; // Define a small tolerance
+    
         // Build the augmented matrix [matrix | identity]
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
@@ -508,26 +507,44 @@ public class Project1
             }
             augmented[i][i + rows] = 1;
         }
-
-        // Apply Gauss-Jordan elimination
+    
+        // Apply Gauss-Jordan elimination with row swapping
         for (int i = 0; i < rows; i++) {
-            double diagElement = augmented[i][i];
-            if (diagElement == 0) {
-                clearConsole();
-                System.out.println("MATRIX OPERATIONS: INVERSE");
-                printMatrix(matrix);
-                System.out.println("Matrix is singular and cannot be inverted.");
-                scanner.nextLine();
-                System.out.println("Press enter to return to matrix operations menu: ");
-                scanner.nextLine();
-                clearConsole();
-                return;
+            // Check if the diagonal element is too small
+            if (Math.abs(augmented[i][i]) < tolerance) {
+                // Find a row below the current one with a non-zero element in the current column
+                boolean swapped = false;
+                for (int k = i + 1; k < rows; k++) {
+                    if (Math.abs(augmented[k][i]) > tolerance) {
+                        // Swap rows i and k
+                        double[] temp = augmented[i];
+                        augmented[i] = augmented[k];
+                        augmented[k] = temp;
+                        swapped = true;
+                        break;
+                    }
+                }
+                // If no non-zero pivot was found, the matrix is singular
+                if (!swapped) {
+                    clearConsole();
+                    System.out.println("MATRIX OPERATIONS: INVERSE");
+                    printMatrix(matrix);
+                    System.out.println("Matrix is singular and cannot be inverted.");
+                    scanner.nextLine();
+                    System.out.println("Press enter to return to matrix operations menu: ");
+                    scanner.nextLine();
+                    clearConsole();
+                    return;
+                }
             }
-
+    
+            // Normalize the pivot row
+            double diagElement = augmented[i][i];
             for (int j = 0; j < 2 * rows; j++) {
                 augmented[i][j] /= diagElement;
             }
-
+    
+            // Eliminate column entries above and below the pivot
             for (int k = 0; k < rows; k++) {
                 if (k != i) {
                     double factor = augmented[k][i];
@@ -537,7 +554,7 @@ public class Project1
                 }
             }
         }
-
+    
         // Extract the inverse from the augmented matrix
         double[][] inverse = new double[rows][rows];
         for (int i = 0; i < rows; i++) {
@@ -545,18 +562,20 @@ public class Project1
                 inverse[i][j] = augmented[i][j + rows]; // Copy the right side of augmented to inverse
             }
         }
-
+    
         clearConsole();
         System.out.println("MATRIX OPERATIONS: INVERSE");
         System.out.println("Entered Matrix");
         printMatrix(matrix);
         System.out.println("\nInverse of the Matrix");
         printMatrix(inverse);
-
+    
         scanner.nextLine();
         System.out.println("Press enter to return to matrix operations menu: ");
         scanner.nextLine();
     }
+    
+
 
     /**
      * Multiplies two matrices entered by the user and displays the resulting matrix.
