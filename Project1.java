@@ -29,7 +29,7 @@ public class Project1
         clearConsole();
         Scanner scanner = new Scanner(System.in);
         boolean err = false;
-        //art("welcome",true,scanner);
+        art("welcome",true,scanner);
         while(true)
         {
             System.out.println("MAIN MENU");
