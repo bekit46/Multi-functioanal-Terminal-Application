@@ -35,7 +35,7 @@ public class Group15
             System.out.println("MAIN MENU");
             System.out.println("[A] Array Operations Menu ");
             System.out.println("[B] Matrix Operations Menu ");
-            System.out.println("[C] Text Encription Menu ");
+            System.out.println("[C] Text Encryption Menu ");
             System.out.println("[D] Tic-Tac-Toe Game");
             System.out.println("[E] Exit the program");
             if(err)
@@ -1104,9 +1104,15 @@ public class Group15
 
             if (input.matches("-?\\d+")) {
                 size = Integer.parseInt(input);
-                if (size >= 1) {
+                if (size >= 1 && size <= 1000) {
                     return size;
-                } else {
+                } 
+                else if(size > 1000){
+                    clearConsole();
+                    System.out.println(message3);
+                    System.out.println("Error: Size can be at most 1000");
+                }
+                else {
                     clearConsole();
                     System.out.println(message3);
                     System.out.println("Error: "+ size +" is not a valid size.");
